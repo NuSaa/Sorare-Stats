@@ -190,6 +190,8 @@ function Add_Stats_On_Page(json)
 {
   const playerInfo = Object.create(json);
   const Average = Object.create(playerInfo.averages);
+  const playerStatus = getPlayingStatus(playerInfo.player.PlayingStatus);
+
 
   const L5 = Math.trunc(Average.avg_5);
   const L15 = Math.trunc(Average.avg_15);
@@ -230,28 +232,38 @@ function Add_Stats_On_Page(json)
     classStyle = body.children[0].children[0].children[0].className.split(' ')[0];
   }
 
-  var DrawL5 = document.createElement("div");
-  DrawL5.setAttribute('class', classStyle + " " + returnStyleAverage(L5));
-  DrawL5.textContent = FindDNP(L5);
+  var DrawPlayerStatus = document.createElement('div');
+  DrawPlayerStatus.setAttribute('style', "font-family: apercu-pro, system-ui, sans-serif; font-style: normal; font-weight: 700; line-height: 26px;");
+  DrawPlayerStatus.textContent = playerStatus;
 
-  var DrawL15 = document.createElement("div");
-  DrawL15.setAttribute('class', classStyle + " " + returnStyleAverage(L15));
-  DrawL15.textContent = FindDNP(L15);
+  var DrawL5 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L5), FindDNP(L5));
 
-  var DrawL20 = document.createElement("div");
-  DrawL20.setAttribute('class', classStyle + " " + returnStyleAverage(L20));
-  DrawL20.textContent = FindDNP(L20);
+  var DrawL15 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L15), FindDNP(L15));
 
-  var DrawL40 = document.createElement("div");
-  DrawL40.setAttribute('class', classStyle + " " + returnStyleAverage(L40));
-  DrawL40.textContent = FindDNP(L40);
+  var DrawL20 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L20), FindDNP(L20));
 
-  body.appendChild(DrawL5);
-  body.appendChild(DrawL15);
-  body.appendChild(DrawL20);
-  body.appendChild(DrawL40);
+  var DrawL40 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L40), FindDNP(L40));
+
+  var DrawInformation = document.createElement("div");
+
+  DrawInformation.setAttribute('class', "playerInformationPlus");
+
+  DrawInformation.appendChild(DrawPlayerStatus);
+  DrawInformation.appendChild(DrawL5);
+  DrawInformation.appendChild(DrawL15);
+  DrawInformation.appendChild(DrawL20);
+  DrawInformation.appendChild(DrawL40);
+
+  //body.parentElement.appendChild(DrawInformation);
+  body.parentElement.insertBefore(DrawInformation, body.parentElement.children[1]);
 }
 
+
+/* --------------------------------------------------------
+ *                     HELP FUNCTION
+ * ----------------------------------------------------------- */
+
+/// Function for convert 0 score in DNP string
 function FindDNP(score)
 {
   if (score < 1)
@@ -264,6 +276,7 @@ function FindDNP(score)
   }
 }
 
+/// Function for get css style from score
 function returnStyleAverage(avg)
 {
   var res;
@@ -298,4 +311,33 @@ function returnStyleAverage(avg)
   }
 
   return res;
+}
+
+function getPlayingStatus(status)
+{
+  var res;
+
+  switch (status)
+  {    
+    case "not_playing" :
+      res = "Status : Reserve";
+      break;
+    case "starter" :
+      res = "Status : Starter";
+      break;
+    case "substitute" :
+      res = "Status : Substitute";
+      break;    
+  }
+  return res;
+}
+
+/// Function for create element AVG
+function CreateAVGElement(element, contentClass, text)
+{
+  var AVG = document.createElement(element);
+  AVG.setAttribute('class', contentClass);
+  AVG.textContent = text;
+
+  return AVG;
 }
