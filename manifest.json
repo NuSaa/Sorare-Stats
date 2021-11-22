@@ -1,0 +1,26 @@
+{
+
+    "manifest_version": 2,
+    "name": "SorareData in Sorare",
+    "author": "Eddy Lafon",
+    "version": "1.0.0.2",
+    "developer": {
+      "name": "Eddy Lafon",
+      "url": "https://lafoneddy.eu/"
+    },
+    "permissions": [
+      "*://*.soraredata.com/*",
+      "tabs"
+    ],
+    "description": "Add link soraredata from player page",  
+    "icons": {
+      "48": "icons/soraredata_logo.png"
+    },  
+    "content_scripts": [
+      {
+        "matches": ["*://*.sorare.com/*"],
+        "js": ["soraredata_sorare.js"]
+      }
+    ]
+  
+  }
