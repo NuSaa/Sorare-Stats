@@ -237,12 +237,16 @@ function Add_Stats_On_Page(json)
   DrawPlayerStatus.textContent = playerStatus;
 
   var DrawL5 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L5), FindDNP(L5));
+  DrawL5.setAttribute('title', "L5");
 
   var DrawL15 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L15), FindDNP(L15));
+  DrawL15.setAttribute('title', "L15");
 
   var DrawL20 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L20), FindDNP(L20));
+  DrawL20.setAttribute('title', "L20");
 
   var DrawL40 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L40), FindDNP(L40));
+  DrawL40.setAttribute('title', "L40");
 
   var DrawInformation = document.createElement("div");
 
