@@ -63,18 +63,24 @@ async function getPlayer()
           playerName = document.getElementsByClassName("MuiPaper-root")[7].children[1].children[0].children[1].children[7].children[0].children[0].children[1].children[0].innerHTML;
           clubName = document.getElementsByClassName("MuiPaper-root")[7].children[1].children[0].children[1].children[7].children[1].children[0].children[1].children[0].innerHTML;
         }
-        else if (document.getElementsByClassName("MuiPaper-root").length === 18) // my club my cards
+        else if (document.getElementsByClassName("MuiPaper-root").length === 18) // my club && my cards && market sell
         {
+          
           if (document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children.length === 7) // common cards
           {
             playerName = document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children[6].children[0].children[0].children[1].children[0].innerHTML;
             clubName = document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children[6].children[1].children[0].children[1].children[0].innerHTML;
           }
+          else if (document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children.length === 8) // market sell
+          {
+            playerName = document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children[7].children[0].children[0].children[1].children[0].innerHTML;
+            clubName = document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children[7].children[1].children[0].children[1].children[0].innerHTML;
+          }
           else if (document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children.length === 9) // other cards
           {
             playerName = document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children[8].children[0].children[0].children[1].children[0].innerHTML;
             clubName = document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children[8].children[1].children[0].children[1].children[0].innerHTML;
-          }          
+          }
         }
         else if (document.getElementsByClassName("MuiPaper-root").length === 2) // personal bid && offer send (receive) && BEST 5 && hall of fame
         {
