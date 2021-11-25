@@ -129,8 +129,6 @@ function return_sorare_data_url(json, clubName)
     }
   } );
 
-  console.log("url : " + urlData);
-
   // Get Player infomation
   getPlayerInfo(urlData, PlayerID).then(result => 
   {          
