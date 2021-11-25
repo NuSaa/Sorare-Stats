@@ -1,7 +1,7 @@
 // event when page is load
 window.addEventListener("load", getPlayer);
 
-//browser.browserAction.onClicked.addListener(handleClick);
+console.log("SorareStats");
 
 // event when url change
 let lastUrl = location.href; 
@@ -50,8 +50,16 @@ async function getPlayer()
         }
         else if (document.getElementsByClassName("MuiPaper-root").length === 19) // market
         {
-          playerName = document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[1].children[7].children[0].children[0].children[1].children[0].innerHTML;
-          clubName = document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[1].children[7].children[1].children[0].children[1].children[0].innerHTML;
+          if (document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[1].children.length === 6)
+          {
+            playerName = document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[1].children[5].children[0].children[0].children[1].children[0].innerHTML;
+            clubName = document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[1].children[5].children[1].children[0].children[1].children[0].innerHTML;
+          }
+          else if (document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[1].children.length === 8)
+          {
+            playerName = document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[1].children[7].children[0].children[0].children[1].children[0].innerHTML;
+            clubName = document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[1].children[7].children[1].children[0].children[1].children[0].innerHTML;
+          }
         }
         else if (document.getElementsByClassName("MuiPaper-root").length === 1) // market solo player
         {          
@@ -98,6 +106,11 @@ async function getPlayer()
           {
             playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[8].children[0].children[0].children[1].children[0].innerHTML;
             clubName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[8].children[1].children[0].children[1].children[0].innerHTML;
+          }
+          else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children.length === 6) // home page pack
+          {
+            playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[5].children[0].children[0].children[1].children[0].innerHTML
+            clubName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[5].children[1].children[0].children[1].children[0].innerHTML
           }
         }
 
@@ -169,7 +182,14 @@ function return_sorare_data_url(json, clubName)
   }
   else if (document.getElementsByClassName("MuiPaper-root").length === 2) // personal bid && personal buy && personal sell && offer received && offer send (send) && offer send (receive) && BEST 5 my club all cards && hall of fame
   {
-    body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[0].children[1];
+    if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[0].children.length === 2)
+    {
+      body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[0].children[1];
+    }
+    else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[0].children.length === 3) // home page pack
+    {
+      body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[0].children[2];
+    }
   }
   else if (document.getElementsByClassName("MuiPaper-root").length === 18) // my club my card
   {
