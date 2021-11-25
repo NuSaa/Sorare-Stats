@@ -1,8 +1,6 @@
 // event when page is load
 window.addEventListener("load", getPlayer);
 
-console.log("SorareStats");
-
 // event when url change
 let lastUrl = location.href; 
 new MutationObserver(() => {
