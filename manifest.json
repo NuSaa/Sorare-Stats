@@ -4,10 +4,6 @@
     "name": "SorareStats",
     "author": "Eddy Lafon",
     "version": "1.0.0.4",
-    "developer": {
-      "name": "Eddy Lafon",
-      "url": "https://lafoneddy.eu/"
-    },
     "permissions": [
       "*://*.soraredata.com/*",
       "tabs"
