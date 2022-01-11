@@ -1,6 +1,8 @@
 // event when page is load
 window.addEventListener("load", getPlayer);
 
+console.log("SorareStats");
+
 // event when url change
 let lastUrl = location.href; 
 new MutationObserver(() => {
@@ -41,75 +43,20 @@ async function getPlayer()
         var playerName;
         var clubName;
 
-        if (document.getElementsByClassName("MuiPaper-root").length === 3) //home page
+        if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children.length == 7)
         {
-          playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[7].children[0].children[0].children[1].children[0].innerHTML;
-          clubName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[7].children[1].children[0].children[1].children[0].innerHTML;
+          playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[6].children[0].children[0].children[1].children[0].innerHTML;
+          clubName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[6].children[1].children[0].children[1].children[0].innerHTML;
         }
-        else if (document.getElementsByClassName("MuiPaper-root").length === 19) // market
+        if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children.length == 8)
         {
-          if (document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[1].children.length === 6)
-          {
-            playerName = document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[1].children[5].children[0].children[0].children[1].children[0].innerHTML;
-            clubName = document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[1].children[5].children[1].children[0].children[1].children[0].innerHTML;
-          }
-          else if (document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[1].children.length === 8)
-          {
-            playerName = document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[1].children[7].children[0].children[0].children[1].children[0].innerHTML;
-            clubName = document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[1].children[7].children[1].children[0].children[1].children[0].innerHTML;
-          }
+          playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[7].children[0].children[0].children[1].children[0].innerHTML;
+          clubName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[7].children[1].children[0].children[1].children[0].innerHTML;
         }
-        else if (document.getElementsByClassName("MuiPaper-root").length === 1) // market solo player
-        {          
-          playerName = document.getElementById("root").children[0].children[1].children[0].children[1].children[7].children[0].children[0].children[1].children[0].innerHTML;
-          clubName = document.getElementById("root").children[0].children[1].children[0].children[1].children[7].children[1].children[0].children[1].children[0].innerHTML;
-        }
-        else if (document.getElementsByClassName("MuiPaper-root").length === 8) // player page
+        else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children.length == 9)
         {
-          playerName = document.getElementsByClassName("MuiPaper-root")[7].children[1].children[0].children[1].children[7].children[0].children[0].children[1].children[0].innerHTML;
-          clubName = document.getElementsByClassName("MuiPaper-root")[7].children[1].children[0].children[1].children[7].children[1].children[0].children[1].children[0].innerHTML;
-        }
-        else if (document.getElementsByClassName("MuiPaper-root").length === 18) // my club && my cards && market sell
-        {
-          
-          if (document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children.length === 7) // common cards
-          {
-            playerName = document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children[6].children[0].children[0].children[1].children[0].innerHTML;
-            clubName = document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children[6].children[1].children[0].children[1].children[0].innerHTML;
-          }
-          else if (document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children.length === 8) // market sell
-          {
-            playerName = document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children[7].children[0].children[0].children[1].children[0].innerHTML;
-            clubName = document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children[7].children[1].children[0].children[1].children[0].innerHTML;
-          }
-          else if (document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children.length === 9) // other cards
-          {
-            playerName = document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children[8].children[0].children[0].children[1].children[0].innerHTML;
-            clubName = document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children[8].children[1].children[0].children[1].children[0].innerHTML;
-          }
-        }
-        else if (document.getElementsByClassName("MuiPaper-root").length === 2) // personal bid && offer send (receive) && BEST 5 && hall of fame
-        {
-          if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children.length === 7) // BEST 5 common cards && hall of fame common cards
-          {
-            playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[6].children[0].children[0].children[1].children[0].innerHTML;
-            clubName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[6].children[1].children[0].children[1].children[0].innerHTML;
-          }
-          else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children.length === 8) // personal bid && offer send (receive) && offer received && hall of fame other cards
-          {
-            playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[7].children[0].children[0].children[1].children[0].innerHTML;
-            clubName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[7].children[1].children[0].children[1].children[0].innerHTML;
-          }
-          else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children.length === 9) // BEST 5 other cards && personal buy && personal sell offer send (send)
-          {
-            playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[8].children[0].children[0].children[1].children[0].innerHTML;
-            clubName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[8].children[1].children[0].children[1].children[0].innerHTML;
-          }
-          else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children.length === 6) // home page pack
-          {
-            playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[5].children[0].children[0].children[1].children[0].innerHTML
-            clubName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[5].children[1].children[0].children[1].children[0].innerHTML
-          }
+          playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[8].children[0].children[0].children[1].children[0].innerHTML;
+          clubName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[8].children[1].children[0].children[1].children[0].innerHTML;
         }
 
         var result;
@@ -165,44 +112,13 @@ function return_sorare_data_url(json, clubName)
   button.appendChild(link);
 
   var body;
-
-  if (document.getElementsByClassName("MuiPaper-root").length === 19) // via market
+  if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children.length == 3)
   {
-    body = document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[0].children[2];
+    body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[2];
   }
-  else if (document.getElementsByClassName("MuiPaper-root").length === 1) // via market player solo
+  else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children.length == 2)
   {
-    body = document.getElementsByClassName("MuiButtonBase-root")[10].parentElement;
-  }
-  else if (document.getElementsByClassName("MuiPaper-root").length === 8) // player page 
-  {
-    body = document.getElementsByClassName("MuiPaper-root")[7].children[1].children[0].children[0].children[1];
-  }
-  else if (document.getElementsByClassName("MuiPaper-root").length === 2) // personal bid && personal buy && personal sell && offer received && offer send (send) && offer send (receive) && BEST 5 my club all cards && hall of fame
-  {
-    if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[0].children.length === 2)
-    {
-      body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[0].children[1];
-    }
-    else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[0].children.length === 3) // home page pack
-    {
-      body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[0].children[2];
-    }
-  }
-  else if (document.getElementsByClassName("MuiPaper-root").length === 18) // my club my card
-  {
-    body = document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[0].children[1];
-  }
-  else if (document.getElementsByClassName("MuiPaper-root").length === 3) // home page && squad page
-  {
-    if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[0].children.length === 2) // squad page && home selling
-    {
-      body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[0].children[1];
-    }
-    else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[0].children.length === 3) // home page && bid
-    {
-      body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[0].children[2];
-    }
+    body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1];
   }
 
   body.appendChild(button);
@@ -214,45 +130,15 @@ function Add_Stats_On_Page(json)
   const Average = Object.create(playerInfo.averages);
   const playerStatus = getPlayingStatus(playerInfo.player.PlayingStatus);
 
-
   const L5 = Math.trunc(Average.avg_5);
   const L15 = Math.trunc(Average.avg_15);
-  const L20 = Math.trunc(Average.avg_20);
   const L40 = Math.trunc(Average.avg_40);
 
   var body;
   var classStyle;
 
-  if (document.getElementsByClassName("MuiPaper-root").length === 19) // via market
-  {
-    body = document.getElementsByClassName("MuiPaper-root")[18].children[1].children[0].children[1].children[0].children[0].children[0];
-    classStyle = body.children[0].children[0].children[0].className.split(' ')[0];
-  }
-  else if (document.getElementsByClassName("MuiPaper-root").length === 1) // via market player solo
-  {
-    body = document.getElementById("root").children[0].children[1].children[0].children[1].children[0].children[0].children[0];
-    classStyle = body.children[0].children[0].children[0].className.split(' ')[0];
-  }
-  else if (document.getElementsByClassName("MuiPaper-root").length === 8) // player page 
-  {
-    body = document.getElementsByClassName("MuiPaper-root")[7].children[1].children[0].children[1].children[0].children[0].children[0];
-    classStyle = body.children[0].children[0].children[0].className.split(' ')[0];
-  }
-  else if (document.getElementsByClassName("MuiPaper-root").length === 2) // personal bid && personal buy && personal sell && offer received && offer send (send) && offer send (receive) && BEST 5 my club all cards && hall of fame
-  {
-    body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[0].children[0].children[0];
-    classStyle = body.children[0].children[0].children[0].className.split(' ')[0];
-  }
-  else if (document.getElementsByClassName("MuiPaper-root").length === 18) // my club my card
-  {
-    body = document.getElementsByClassName("MuiPaper-root")[17].children[1].children[0].children[1].children[0].children[0].children[0];
-    classStyle = body.children[0].children[0].children[0].className.split(' ')[0];
-  }
-  else if (document.getElementsByClassName("MuiPaper-root").length === 3) // home page
-  {
-    body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1].children[0].children[0].children[0];
-    classStyle = body.children[0].children[0].children[0].className.split(' ')[0];
-  }
+  body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[0].children[0].children[0];
+  classStyle = body.children[0].children[0].children[0].className.split(' ')[0];
 
   var DrawPlayerStatus = document.createElement('div');
   DrawPlayerStatus.setAttribute('style', "font-family: apercu-pro, system-ui, sans-serif; font-style: normal; font-weight: 700; line-height: 26px;");
@@ -264,9 +150,6 @@ function Add_Stats_On_Page(json)
   var DrawL15 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L15), FindDNP(L15));
   DrawL15.setAttribute('title', "L15");
 
-  var DrawL20 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L20), FindDNP(L20));
-  DrawL20.setAttribute('title', "L20");
-
   var DrawL40 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L40), FindDNP(L40));
   DrawL40.setAttribute('title', "L40");
 
@@ -277,10 +160,8 @@ function Add_Stats_On_Page(json)
   DrawInformation.appendChild(DrawPlayerStatus);
   DrawInformation.appendChild(DrawL5);
   DrawInformation.appendChild(DrawL15);
-  DrawInformation.appendChild(DrawL20);
   DrawInformation.appendChild(DrawL40);
 
-  //body.parentElement.appendChild(DrawInformation);
   body.parentElement.insertBefore(DrawInformation, body.parentElement.children[1]);
 }
 
