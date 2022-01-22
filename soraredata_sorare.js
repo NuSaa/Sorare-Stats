@@ -151,16 +151,20 @@ function Add_Stats_On_Page(json)
 
   var DrawL5 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L5), FindDNP(L5));
   DrawL5.setAttribute('title', "L5");
+  DrawL5.setAttribute('style', "margin-right:10px")
 
   var DrawL15 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L15), FindDNP(L15));
   DrawL15.setAttribute('title', "L15");
+  DrawL15.setAttribute('style', "margin-right:10px")
 
   var DrawL40 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L40), FindDNP(L40));
   DrawL40.setAttribute('title', "L40");
+  DrawL40.setAttribute('style', "margin-right:10px")
 
   var DrawInformation = document.createElement("div");
 
   DrawInformation.setAttribute('class', "playerInformationPlus");
+  //DrawInformation.setAttribute('style', "gap:10px")
 
   DrawInformation.appendChild(DrawPlayerStatus);
   DrawInformation.appendChild(DrawL5);
