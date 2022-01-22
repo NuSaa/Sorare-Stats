@@ -43,12 +43,17 @@ async function getPlayer()
         var playerName;
         var clubName;
 
-        if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children.length == 7)
+        if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children.length == 6)
+        {
+          playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[5].children[0].children[0].children[1].children[0].innerHTML;
+          clubName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[5].children[1].children[0].children[1].children[0].innerHTML;
+        }
+        else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children.length == 7)
         {
           playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[6].children[0].children[0].children[1].children[0].innerHTML;
           clubName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[6].children[1].children[0].children[1].children[0].innerHTML;
         }
-        if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children.length == 8)
+        else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children.length == 8)
         {
           playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[7].children[0].children[0].children[1].children[0].innerHTML;
           clubName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[7].children[1].children[0].children[1].children[0].innerHTML;
