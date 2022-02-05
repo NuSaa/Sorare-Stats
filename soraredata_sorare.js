@@ -1,7 +1,7 @@
 // event when page is load
 window.addEventListener("load", getPlayer);
 
-//console.log("SorareStats");
+console.log("SorareStats");
 
 // event when url change
 let lastUrl = location.href; 
@@ -43,7 +43,12 @@ async function getPlayer()
         var playerName;
         var clubName;
 
-        if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children.length == 6)
+        if (document.getElementsByClassName("MuiPaper-root").length == 1)
+        {
+          playerName = document.getElementsByClassName("webp")[0].children[1].children[0].children[1].lastChild.children[0].children[0].children[1].children[0].innerHTML;
+          clubName = document.getElementsByClassName("webp")[0].children[1].children[0].children[1].lastChild.children[1].children[0].children[1].children[0].innerHTML;
+        }
+        else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children.length == 6)
         {
           playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[5].children[0].children[0].children[1].children[0].innerHTML;
           clubName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[5].children[1].children[0].children[1].children[0].innerHTML;
@@ -63,12 +68,25 @@ async function getPlayer()
           playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[8].children[0].children[0].children[1].children[0].innerHTML;
           clubName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[8].children[1].children[0].children[1].children[0].innerHTML;
         }
+        /*else (document.getElementsByClassName("MuiPaper-root")[2].children[1].children[1].children.length == 8) // from GW
+        {
+          playerName = document.getElementsByClassName("MuiPaper-root")[2].children[1].children[1].children[7].children[0].children[0].children[1].children[0].innerHTML;
+          clubName = document.getElementsByClassName("MuiPaper-root")[2].children[1].children[1].children[7].children[1].children[0].children[1].children[0].innerHTML;
+        }*/
+        
 
         var result;
         
         getPlayerInfo("https://www.soraredata.com/api/players/search/", playerName).then(result => 
         {          
           result = return_sorare_data_url(result.data, clubName);
+        });
+
+        var transfert;
+
+        getPlayerInfo("https://www.transfermarkt.fr/schnellsuche/ergebnis/schnellsuche?query=", "Renato%20Sanches").then(result => 
+        {          
+          
         });
 
     }, 1000);
@@ -117,7 +135,12 @@ function return_sorare_data_url(json, clubName)
   button.appendChild(link);
 
   var body;
-  if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children.length == 3)
+
+  if (document.getElementsByClassName("MuiPaper-root").length == 1 && document.getElementsByClassName("webp")[0].children[1].children[0].children[0].children.length == 2)
+  {
+    body = document.getElementsByClassName("webp")[0].children[1].children[0].children[0].children[1];
+  }
+  else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children.length == 3)
   {
     body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[2];
   }
@@ -142,7 +165,15 @@ function Add_Stats_On_Page(json)
   var body;
   var classStyle;
 
-  body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[0].children[0].children[0];
+  if (document.getElementsByClassName("MuiPaper-root").length == 1)
+  {
+    body = document.getElementsByClassName("webp")[0].children[1].children[0].children[1].children[0].children[0].children[0];
+  }
+  else
+  {
+    body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[0].children[0].children[0];
+  }
+
   classStyle = body.children[0].children[0].children[0].className.split(' ')[0];
 
   var DrawPlayerStatus = document.createElement('div');
