@@ -1,18 +1,32 @@
-// event when page is load
-window.addEventListener("load", getPlayer);
-
 console.log("SorareStats");
 
-// event when url change
-let lastUrl = location.href; 
-new MutationObserver(() => {
-  const url = location.href;  
-  if (url !== lastUrl && url.includes("cards") && !url.includes("tab=cards")) {    
-    //onUrlChange();
-    getPlayer();
-  }
-  lastUrl = url;
-}).observe(document, {subtree: true, childList: true});
+var lock = false;
+
+var oldHref = document.location.href;
+
+window.onload = function() {
+    var bodyList = document.querySelector("body")
+
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (oldHref != document.location.href) {
+                oldHref = document.location.href;
+                /* Changed ! your code here */
+                if (document.location.href.includes("cards") /*&& !url.includes("tab=cards")*/) {
+                  getPlayer();
+                }
+            }
+        });
+    });
+    
+    var config = {
+        childList: true,
+        subtree: true
+    };
+    
+    observer.observe(bodyList, config);
+};
+
 
 // function for get infomation on soraredata api
 async function getPlayerInfo(url, param)
