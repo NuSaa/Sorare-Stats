@@ -96,13 +96,6 @@ async function getPlayer()
           result = return_sorare_data_url(result.data, clubName);
         });
 
-        var transfert;
-
-        getPlayerInfo("https://www.transfermarkt.fr/schnellsuche/ergebnis/schnellsuche?query=", "Renato%20Sanches").then(result => 
-        {          
-          
-        });
-
     }, 1000);
 }
 
