@@ -1,7 +1,5 @@
 console.log("SorareStats");
 
-var lock = false;
-
 var oldHref = document.location.href;
 
 window.onload = function() {

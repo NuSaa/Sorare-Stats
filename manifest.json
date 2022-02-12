@@ -1,17 +1,12 @@
 {
 
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "SorareStats",
     "author": "Eddy Lafon",
     "version": "1.0.0.7",
-    "developer": {
-      "name": "Eddy Lafon",
-      "url": "https://lafoneddy.eu/"
-    },
-    "permissions": [
+    "host_permissions": [
       "*://*.soraredata.com/*",
-      "*://*.lafoneddy.eu/*",
-      "tabs"
+      "*://*.lafoneddy.eu/*"
     ],
     "description": "Add link soraredata from player page",  
     "icons": {
