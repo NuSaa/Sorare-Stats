@@ -10,6 +10,7 @@
     },
     "permissions": [
       "*://*.soraredata.com/*",
+      "*://*.lafoneddy.eu/*",
       "tabs"
     ],
     "description": "Add link soraredata from player page",  

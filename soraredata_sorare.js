@@ -32,10 +32,15 @@ window.onload = function() {
 async function getPlayerInfo(url, param)
 {
   let urlRequest = url + param;
+  var myHeaders = new Headers();
+  var myInit = { method: 'GET',
+               headers: myHeaders,
+               mode: 'cors',
+               cache: 'default' };
   try
   {
     let jsonResult;
-    return await fetch(urlRequest).then(resp => resp.json().then(data => ({
+    return await fetch(urlRequest,myInit).then(resp => resp.json().then(data => ({
       data: data,
       status: resp.status
     })
@@ -91,7 +96,7 @@ async function getPlayer()
 
         var result;
         
-        getPlayerInfo("https://www.soraredata.com/api/players/search/", playerName).then(result => 
+        getPlayerInfo("https://api.lafoneddy.eu/SorareData/", playerName + '/' + clubName).then(result => 
         {          
           result = return_sorare_data_url(result.data, clubName);
         });
@@ -102,26 +107,15 @@ async function getPlayer()
 // function for add button on player page
 function return_sorare_data_url(json, clubName)
 {
-  var urlData = 'https://www.soraredata.com/api/players/info/';
-  var PlayerID;
   const play = Object.create(json);
-  const licensed = Object.create(play.licensed_players);
 
-  var dataUrl = "https://www.soraredata.com/player/";
+  var urlPlayer = play.urlPage;
+  var L5 = play.l5;
+  var L15 = play.l15;
+  var L40 = play.l40;
+  var playerStatus = play.playerStatus;
 
-  play.licensed_players.forEach (player =>{
-    if (player.team.DisplayName === clubName)
-    {
-      dataUrl = dataUrl + player.player.PlayerId;
-      PlayerID = player.player.PlayerId;
-    }
-  } );
-
-  // Get Player infomation
-  getPlayerInfo(urlData, PlayerID).then(result => 
-  {          
-    result = Add_Stats_On_Page(result.data);
-  });
+  Add_Stats_On_Page(L5, L15, L40, playerStatus);
 
   var button = document.createElement("div");
 
@@ -129,7 +123,7 @@ function return_sorare_data_url(json, clubName)
 
   var link = document.createElement("a");
 
-  link.setAttribute('href', dataUrl);
+  link.setAttribute('href', urlPlayer);
   link.setAttribute('target', "_blank");
 
   var img = document.createElement("img");
@@ -159,15 +153,11 @@ function return_sorare_data_url(json, clubName)
   body.appendChild(button);
 }
 
-function Add_Stats_On_Page(json)
+function Add_Stats_On_Page(_L5, _L15, _L40, _playerStatus)
 {
-  const playerInfo = Object.create(json);
-  const Average = Object.create(playerInfo.averages);
-  const playerStatus = getPlayingStatus(playerInfo.player.PlayingStatus);
-
-  const L5 = Math.trunc(Average.avg_5);
-  const L15 = Math.trunc(Average.avg_15);
-  const L40 = Math.trunc(Average.avg_40);
+  const L5 = Math.trunc(_L5);
+  const L15 = Math.trunc(_L15);
+  const L40 = Math.trunc(_L40);
 
   var body;
   var classStyle;
@@ -185,7 +175,7 @@ function Add_Stats_On_Page(json)
 
   var DrawPlayerStatus = document.createElement('div');
   DrawPlayerStatus.setAttribute('style', "font-family: apercu-pro, system-ui, sans-serif; font-style: normal; font-weight: 700; line-height: 26px;");
-  DrawPlayerStatus.textContent = playerStatus;
+  DrawPlayerStatus.textContent = getPlayingStatus(_playerStatus);
 
   var DrawL5 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L5), FindDNP(L5));
   DrawL5.setAttribute('title', "L5");
