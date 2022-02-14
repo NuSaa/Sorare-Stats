@@ -96,14 +96,14 @@ async function getPlayer()
         
         getPlayerInfo("https://api.lafoneddy.eu/SorareData/", playerName + '/' + clubName).then(result => 
         {          
-          result = return_sorare_data_url(result.data, clubName);
+          result = return_sorare_data_url(result.data, clubName, playerName);
         });
 
     }, 1000);
 }
 
 // function for add button on player page
-function return_sorare_data_url(json, clubName)
+function return_sorare_data_url(json, clubName, playerName)
 {
   const play = Object.create(json);
 
@@ -115,10 +115,12 @@ function return_sorare_data_url(json, clubName)
 
   Add_Stats_On_Page(L5, L15, L40, playerStatus);
 
+
+  //Bouton soraredata
   var button = document.createElement("div");
 
   button.setAttribute('style', "margin-top:15%");
-
+  
   var link = document.createElement("a");
 
   link.setAttribute('href', urlPlayer);
@@ -128,10 +130,31 @@ function return_sorare_data_url(json, clubName)
   img.setAttribute('src', "https://i.ibb.co/Q846wRd/soraredata-logo.png");
   img.setAttribute('width', "40");
   img.setAttribute('height', "40");
+  img.setAttribute('style', "border-radius:5px 5px")
 
   link.appendChild(img);
 
+  //Bouton soraredata
+  var buttont = document.createElement("div");
+
+  buttont.setAttribute('style', "margin-top:15%");
+
+  var linkt = document.createElement("a");
+
+  linkt.setAttribute('href', "https://www.transfermarkt.fr/schnellsuche/ergebnis/schnellsuche?query=" + playerName);
+  linkt.setAttribute('target', "_blank");
+
+  var imgt = document.createElement("img");
+  imgt.setAttribute('src', "https://media-exp1.licdn.com/dms/image/C560BAQEKoqF4x09Y3g/company-logo_200_200/0/1620654198278?e=2159024400&v=beta&t=ddAL2J7Ssly4H7Qt4-PQ8_GR3M8FypcY9UqgR9hv5PQ");
+  imgt.setAttribute('width', "40");
+  imgt.setAttribute('height', "40");
+  imgt.setAttribute('style', "border-radius:5px 5px")
+
+  linkt.appendChild(imgt);
+  
+
   button.appendChild(link);
+  buttont.appendChild(linkt);
 
   var body;
 
@@ -149,6 +172,7 @@ function return_sorare_data_url(json, clubName)
   }
 
   body.appendChild(button);
+  body.appendChild(buttont);
 }
 
 function Add_Stats_On_Page(_L5, _L15, _L40, _playerStatus)
