@@ -134,14 +134,14 @@ function return_sorare_data_url(json, clubName, playerName)
 
   link.appendChild(img);
 
-  //Bouton soraredata
+  //Bouton transfertmarkt
   var buttont = document.createElement("div");
 
   buttont.setAttribute('style', "margin-top:15%");
 
   var linkt = document.createElement("a");
 
-  linkt.setAttribute('href', "https://www.transfermarkt.fr/schnellsuche/ergebnis/schnellsuche?query=" + playerName);
+  linkt.setAttribute('href', "https://www.transfermarkt.com/schnellsuche/ergebnis/schnellsuche?query=" + playerName);
   linkt.setAttribute('target', "_blank");
 
   var imgt = document.createElement("img");
@@ -151,10 +151,29 @@ function return_sorare_data_url(json, clubName, playerName)
   imgt.setAttribute('style', "border-radius:5px 5px")
 
   linkt.appendChild(imgt);
+
+  //Bouton transfertmarkt
+  var buttonSofa = document.createElement("div");
+
+  buttonSofa.setAttribute('style', "margin-top:15%");
+
+  var linkSofa = document.createElement("a");
+
+  linkSofa.setAttribute('href', "https://www.sofascore.com/search?q=" + playerName);
+  linkSofa.setAttribute('target', "_blank");
+
+  var imgSofa = document.createElement("img");
+  imgSofa.setAttribute('src', "https://yt3.ggpht.com/ytc/AKedOLRXkWgKnrK4xlgol3j5r08WV6Ny_s5gVUfTLwt63g=s88-c-k-c0x00ffffff-no-rj");
+  imgSofa.setAttribute('width', "40");
+  imgSofa.setAttribute('height', "40");
+  imgSofa.setAttribute('style', "border-radius:5px 5px")
+
+  linkSofa.appendChild(imgSofa);
   
 
   button.appendChild(link);
   buttont.appendChild(linkt);
+  buttonSofa.appendChild(linkSofa);
 
   var body;
 
@@ -173,6 +192,7 @@ function return_sorare_data_url(json, clubName, playerName)
 
   body.appendChild(button);
   body.appendChild(buttont);
+  body.appendChild(buttonSofa);
 }
 
 function Add_Stats_On_Page(_L5, _L15, _L40, _playerStatus)
