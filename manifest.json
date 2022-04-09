@@ -19,7 +19,7 @@
     },  
     "content_scripts": [
       {
-        "matches": ["*://*.sorare.com/*"],
+        "matches": ["*://*.sorare.com/*", "*://*.soraredata.com/*"],
         "js": ["soraredata_sorare.js"]
       }
     ]
