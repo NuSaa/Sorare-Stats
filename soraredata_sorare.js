@@ -270,6 +270,8 @@ function add_button_on_sorare_data()
       {
         div_icon = document.children[0].children[1].children[1].children[0].children[0].children[1].children[2].children[0].children[1];
         append = true;
+
+        player_Name = player_Name.split('-')[0];
       }
 
       var temp = "oui";
