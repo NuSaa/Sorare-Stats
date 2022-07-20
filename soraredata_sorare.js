@@ -2,33 +2,52 @@ console.log("SorareStats");
 
 var oldHref = document.location.href;
 
-window.onload = function() {
-    var bodyList = document.querySelector("body")
+new MutationObserver(() => {
+  const url = location.href;
+  if (url !== oldHref) {
+    oldHref = url;
+    if (document.location.href.includes("cards") /*&& !url.includes("tab=cards")*/) {
+      getPlayer();
+    }
+    else if (document.location.href.includes("soraredata.com/player/"))
+    {
+      add_button_on_sorare_data();
+    }
+  }
+}).observe(document, {subtree: true, childList: true});
 
-    var observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (oldHref != document.location.href) {
-                oldHref = document.location.href;
-                /* Changed ! your code here */
-                if (document.location.href.includes("cards") /*&& !url.includes("tab=cards")*/) {
-                  getPlayer();
-                }
-                else if (document.location.href.includes("soraredata.com/player/"))
-                {
-                  add_button_on_sorare_data();
-                }
-            }
-        });
-    });
-    
-    var config = {
-        childList: true,
-        subtree: true
-    };
-    
-    observer.observe(bodyList, config);
-};
+// window.onload = function() {
+//     var bodyList = document.querySelector("body")
 
+//     var observer = new MutationObserver(function(mutations) {
+//         mutations.forEach(function(mutation) {
+//             if (oldHref != document.location.href) {
+//                 oldHref = document.location.href;
+//                 /* Changed ! your code here */
+//                 if (document.location.href.includes("cards") /*&& !url.includes("tab=cards")*/) {
+//                   getPlayer();
+//                 }
+//                 else if (document.location.href.includes("soraredata.com/player/"))
+//                 {
+//                   add_button_on_sorare_data();
+//                 }
+//             }
+//         });
+//     });
+    
+//     var config = {
+//         childList: true,
+//         subtree: true
+//     };
+    
+//     observer.observe(bodyList, config);
+// };
+
+window.addEventListener('popstate', function (event) {
+	// Log the state data to the console
+	console.log(event.state);
+});
+ 
 
 window.addEventListener("load", add_button_on_sorare_data());
 
@@ -66,10 +85,17 @@ async function getPlayer()
         var playerName;
         var clubName;
 
-        if (document.getElementsByClassName("MuiPaper-root").length == 1)
+        if (document.getElementsByClassName("MuiPaper-root").length == 1 && document.getElementsByClassName("MuiPaper-root")[0].children[1].children[1].children.length == 9)
         {
-          playerName = document.getElementsByClassName("webp")[0].children[1].children[0].children[1].lastChild.children[0].children[0].children[1].children[0].innerHTML;
-          clubName = document.getElementsByClassName("webp")[0].children[1].children[0].children[1].lastChild.children[1].children[0].children[1].children[0].innerHTML;
+          /*playerName = document.getElementsByClassName("webp")[0].children[1].children[0].children[1].lastChild.children[0].children[0].children[1].children[0].innerHTML;
+          clubName = document.getElementsByClassName("webp")[0].children[1].children[0].children[1].lastChild.children[1].children[0].children[1].children[0].innerHTML;*/
+          playerName = document.getElementsByClassName("MuiPaper-root")[0].children[1].children[1].children[8].children[0].children[0].children[1].children[0].innerHTML;
+          clubName = document.getElementsByClassName("MuiPaper-root")[0].children[1].children[1].children[8].children[1].children[0].children[1].children[0].innerHTML;
+        }
+        else if (document.getElementsByClassName("MuiPaper-root").length == 1 && document.getElementsByClassName("MuiPaper-root")[0].children[1].children[1].children.length == 8)
+        {
+          playerName = document.getElementsByClassName("MuiPaper-root")[0].children[1].children[1].children[7].children[0].children[0].children[1].children[0].innerHTML;
+          clubName = document.getElementsByClassName("MuiPaper-root")[0].children[1].children[1].children[7].children[1].children[0].children[1].children[0].innerHTML;
         }
         else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children.length == 6)
         {
@@ -183,7 +209,17 @@ function return_sorare_data_url(json, clubName, playerName)
 
   var body;
 
-  if (document.getElementsByClassName("MuiPaper-root").length == 1 && document.getElementsByClassName("webp")[0].children[1].children[0].children[0].children.length == 2)
+
+  if(document.getElementsByClassName("MuiPaper-root").length == 1 && document.getElementsByClassName("MuiPaper-root")[0].children[1].children[0].children.length == 3)
+  {
+    body = document.getElementsByClassName("MuiPaper-root")[0].children[1].children[0].children[2];
+  }
+  else if(document.getElementsByClassName("MuiPaper-root").length == 1 && document.getElementsByClassName("MuiPaper-root")[0].children[1].children[0].children.length == 2)
+  {
+    body = document.getElementsByClassName("MuiPaper-root")[0].children[1].children[0].children[1];
+  }
+
+  /*if (document.getElementsByClassName("MuiPaper-root").length == 1 && document.getElementsByClassName("webp")[0].children[1].children[0].children[0].children.length == 2)
   {
     body = document.getElementsByClassName("webp")[0].children[1].children[0].children[0].children[1];
   }
@@ -194,7 +230,7 @@ function return_sorare_data_url(json, clubName, playerName)
   else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children.length == 2)
   {
     body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1];
-  }
+  }*/
 
   body.appendChild(button);
   body.appendChild(buttont);
@@ -212,7 +248,8 @@ function Add_Stats_On_Page(_L5, _L15, _L40, _playerStatus)
 
   if (document.getElementsByClassName("MuiPaper-root").length == 1)
   {
-    body = document.getElementsByClassName("webp")[0].children[1].children[0].children[1].children[0].children[0].children[0];
+    //body = document.getElementsByClassName("webp")[0].children[1].children[0].children[1].children[0].children[0].children[0];
+    body = document.getElementsByClassName("MuiPaper-root")[0].children[1].children[1].children[0].children[0].children[0];
   }
   else
   {
