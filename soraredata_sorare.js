@@ -300,12 +300,14 @@ function add_button_on_sorare_data()
       var append;
       if (document.location.href.includes("soraredata.com/player/"))
       {
-        div_icon = document.children[0].children[1].children[1].children[0].children[0].children[1].children[2].children[0].children[0].children[0].children[2].children[3].children[0].children[0];
+        //div_icon = document.children[0].children[1].children[1].children[0].children[0].children[1].children[2].children[0].children[0].children[0].children[2].children[3].children[0].children[0];
+        div_icon = document.children[0].children[1].children[2].children[0].children[0].children[1].children[1].children[0].children[0].children[0].children[2].children[3].children[0].children[0];
         append = false;
       }
       else if (document.location.href.includes("soraredata.com/card/"))
       {
-        div_icon = document.children[0].children[1].children[1].children[0].children[0].children[1].children[2].children[0].children[1];
+        //div_icon = document.children[0].children[1].children[1].children[0].children[0].children[1].children[2].children[0].children[1];
+        div_icon = document.children[0].children[1].children[2].children[0].children[0].children[1].children[1].children[0].children[1];
         append = true;
 
         player_Name = player_Name.split('-')[0];
