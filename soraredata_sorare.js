@@ -1,6 +1,7 @@
 console.log("SorareStats");
 
 var oldHref = document.location.href;
+var idplayerSorareData = "";
 
 new MutationObserver(() => {
   const url = location.href;
@@ -11,7 +12,10 @@ new MutationObserver(() => {
     }
     else if (document.location.href.includes("soraredata.com/player/"))
     {
-      add_button_on_sorare_data();
+      if (document.location.href.split('/')[4] != idplayerSorareData)
+      {
+        add_button_on_sorare_data();
+      }
     }
     else if (document.location.href.includes("cards") && document.location.href.includes("mlb"))
     {
@@ -499,17 +503,25 @@ function Add_Stats_On_Page_MLB(_L5, _L15, _L40, _playerStatus)
 
 function add_button_on_sorare_data()
 {
+  idplayerSorareData = document.location.href.split('/')[4];
   
     setTimeout(() => {
       var player_Name = document.title
 
       var div_icon;
       var append;
+      var mlb = false;
+
       if (document.location.href.includes("soraredata.com/player/"))
       {
         //div_icon = document.children[0].children[1].children[1].children[0].children[0].children[1].children[2].children[0].children[0].children[0].children[2].children[3].children[0].children[0];
         div_icon = document.children[0].children[1].children[2].children[0].children[0].children[1].children[1].children[0].children[0].children[0].children[2].children[3].children[0].children[0];
         append = false;
+
+        if (document.children[0].children[1].children.root.children[0].children[0].children[1].children[1].children[0].children[0].children[0].children[2].children[1].children[0].children[2].children[1].children[1]?.innerHTML == "Major League Baseball")
+        {
+          mlb = true;
+        }
       }
       else if (document.location.href.includes("soraredata.com/card/"))
       {
@@ -522,54 +534,86 @@ function add_button_on_sorare_data()
 
       var temp = "oui";
 
-       //Bouton SofaScore
-      var buttonSofa = document.createElement("div");
-
-      buttonSofa.setAttribute('class', "SofaScoreButton");
-
-      var linkSofa = document.createElement("a");
-
-      linkSofa.setAttribute('href', "https://www.sofascore.com/search?q=" + player_Name);
-      linkSofa.setAttribute('target', "_blank");
-
-      var imgSofa = document.createElement("img");
-      imgSofa.setAttribute('src', "https://yt3.ggpht.com/ytc/AKedOLRXkWgKnrK4xlgol3j5r08WV6Ny_s5gVUfTLwt63g=s88-c-k-c0x00ffffff-no-rj");
-      imgSofa.setAttribute('width', "40");
-      imgSofa.setAttribute('height', "40");
-      imgSofa.setAttribute('style', "border-radius:5px 5px")
-
-      linkSofa.appendChild(imgSofa);
-      buttonSofa.appendChild(linkSofa);
-
-      //Bouton transfertmarkt
-      var buttont = document.createElement("div");
-
-      buttont.setAttribute('class', "TransferMarktButton");
-
-      var linkt = document.createElement("a");
-
-      linkt.setAttribute('href', "https://www.transfermarkt.com/schnellsuche/ergebnis/schnellsuche?query=" + player_Name);
-      linkt.setAttribute('target', "_blank");
-
-      var imgt = document.createElement("img");
-      imgt.setAttribute('src', "https://media-exp1.licdn.com/dms/image/C560BAQEKoqF4x09Y3g/company-logo_200_200/0/1620654198278?e=2159024400&v=beta&t=ddAL2J7Ssly4H7Qt4-PQ8_GR3M8FypcY9UqgR9hv5PQ");
-      imgt.setAttribute('width', "40");
-      imgt.setAttribute('height', "40");
-      imgt.setAttribute('style', "border-radius:5px 5px")
-
-      linkt.appendChild(imgt);
-
-      buttont.appendChild(linkt);
-
-      if (!append)
+      if (mlb)
       {
-        div_icon.insertBefore(buttonSofa, div_icon.children[0]);
-        div_icon.insertBefore(buttont, div_icon.children[0]);
+        var buttonRefMLB = document.createElement("div");
+
+        buttonRefMLB.setAttribute('class', "SofaScoreButton");
+
+        var linkRefMLB = document.createElement("a");
+
+        linkRefMLB.setAttribute('href', "https://www.baseball-reference.com/search/search.fcgi?search=" + player_Name);
+        linkRefMLB.setAttribute('target', "_blank");
+
+        var imgRefMLB = document.createElement("img");
+        imgRefMLB.setAttribute('src', "https://pbs.twimg.com/profile_images/849301979994234880/V9SybF8H_400x400.jpg");
+        imgRefMLB.setAttribute('width', "40");
+        imgRefMLB.setAttribute('height', "40");
+        imgRefMLB.setAttribute('style', "border-radius:5px 5px")
+
+        linkRefMLB.appendChild(imgRefMLB);
+        buttonRefMLB.appendChild(linkRefMLB);
+
+        if (!append)
+        {
+          div_icon.insertBefore(buttonRefMLB, div_icon.children[0]);
+        }
+        else
+        {
+          div_icon.append(buttonRefMLB);
+        }
       }
       else
       {
-        div_icon.append(buttonSofa);
-        div_icon.append(buttont);
+        //Bouton SofaScore
+        var buttonSofa = document.createElement("div");
+
+        buttonSofa.setAttribute('class', "SofaScoreButton");
+
+        var linkSofa = document.createElement("a");
+
+        linkSofa.setAttribute('href', "https://www.sofascore.com/search?q=" + player_Name);
+        linkSofa.setAttribute('target', "_blank");
+
+        var imgSofa = document.createElement("img");
+        imgSofa.setAttribute('src', "https://yt3.ggpht.com/ytc/AKedOLRXkWgKnrK4xlgol3j5r08WV6Ny_s5gVUfTLwt63g=s88-c-k-c0x00ffffff-no-rj");
+        imgSofa.setAttribute('width', "40");
+        imgSofa.setAttribute('height', "40");
+        imgSofa.setAttribute('style', "border-radius:5px 5px")
+
+        linkSofa.appendChild(imgSofa);
+        buttonSofa.appendChild(linkSofa);
+
+        //Bouton transfertmarkt
+        var buttont = document.createElement("div");
+
+        buttont.setAttribute('class', "TransferMarktButton");
+
+        var linkt = document.createElement("a");
+
+        linkt.setAttribute('href', "https://www.transfermarkt.com/schnellsuche/ergebnis/schnellsuche?query=" + player_Name);
+        linkt.setAttribute('target', "_blank");
+
+        var imgt = document.createElement("img");
+        imgt.setAttribute('src', "https://media-exp1.licdn.com/dms/image/C560BAQEKoqF4x09Y3g/company-logo_200_200/0/1620654198278?e=2159024400&v=beta&t=ddAL2J7Ssly4H7Qt4-PQ8_GR3M8FypcY9UqgR9hv5PQ");
+        imgt.setAttribute('width', "40");
+        imgt.setAttribute('height', "40");
+        imgt.setAttribute('style', "border-radius:5px 5px")
+
+        linkt.appendChild(imgt);
+
+        buttont.appendChild(linkt);
+
+        if (!append)
+        {
+          div_icon.insertBefore(buttonSofa, div_icon.children[0]);
+          div_icon.insertBefore(buttont, div_icon.children[0]);
+        }
+        else
+        {
+          div_icon.append(buttonSofa);
+          div_icon.append(buttont);
+        }
       }
     }, 1000);
   
