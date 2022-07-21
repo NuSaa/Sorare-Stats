@@ -6,12 +6,16 @@ new MutationObserver(() => {
   const url = location.href;
   if (url !== oldHref) {
     oldHref = url;
-    if (document.location.href.includes("cards") /*&& !url.includes("tab=cards")*/) {
+    if (document.location.href.includes("cards") && !document.location.href.includes("mlb")/*&& !url.includes("tab=cards")*/) {
       getPlayer();
     }
     else if (document.location.href.includes("soraredata.com/player/"))
     {
       add_button_on_sorare_data();
+    }
+    else if (document.location.href.includes("cards") && document.location.href.includes("mlb"))
+    {
+      getPlayerMLB();
     }
   }
 }).observe(document, {subtree: true, childList: true});
@@ -97,6 +101,11 @@ async function getPlayer()
           playerName = document.getElementsByClassName("MuiPaper-root")[0].children[1].children[1].children[7].children[0].children[0].children[1].children[0].innerHTML;
           clubName = document.getElementsByClassName("MuiPaper-root")[0].children[1].children[1].children[7].children[1].children[0].children[1].children[0].innerHTML;
         }
+        else if (document.getElementsByClassName("MuiPaper-root").length == 1 && document.getElementsByClassName("MuiPaper-root")[0].children[1].children[1].children.length == 6)
+        {
+          playerName = document.getElementsByClassName("MuiPaper-root")[0].children[1].children[1].children[5].children[0].children[0].children[1].children[0].innerHTML;
+          clubName = document.getElementsByClassName("MuiPaper-root")[0].children[1].children[1].children[5].children[1].children[0].children[1].children[0].innerHTML;
+        }
         else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children.length == 6)
         {
           playerName = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[5].children[0].children[0].children[1].children[0].innerHTML;
@@ -129,6 +138,33 @@ async function getPlayer()
         getPlayerInfo("https://api.lafoneddy.eu/SorareData/", playerName + '/' + clubName).then(result => 
         {          
           result = return_sorare_data_url(result.data, clubName, playerName);
+        });
+
+    }, 1000);
+}
+
+// function for get player name and club name
+async function getPlayerMLB()
+{
+    setTimeout(() => {
+       
+        var playerName;
+        var clubName;
+
+        if (document.body.lastChild.children.length == 4) //main page
+        {
+          playerName = document.body.lastChild.children[2].children[0].children[1].children[1].children[0].children[0].children[0].children[1].children[0].innerHTML;
+        }
+        else if (document.body.children.root.children.length == 3) //club
+        {
+          playerName = document.body.children.root.children[1].children[1].children[0].children[1].children[0].children[0].children[0].children[1].children[0].innerHTML;
+        }        
+
+        var result;
+        
+        getPlayerInfo("https://api.lafoneddy.eu/SorareData/", playerName + '/' + clubName).then(result => 
+        {          
+          result = return_sorare_data_url_MLB(result.data, clubName, playerName);
         });
 
     }, 1000);
@@ -237,6 +273,117 @@ function return_sorare_data_url(json, clubName, playerName)
   body.appendChild(buttonSofa);
 }
 
+// function for add button on player page
+function return_sorare_data_url_MLB(json, clubName, playerName)
+{
+  const play = Object.create(json);
+
+  var urlPlayer = play.urlPage;
+  var L5 = play.l5;
+  var L15 = play.l15;
+  var L40 = play.l40;
+  var playerStatus = play.playerStatus;
+
+  Add_Stats_On_Page_MLB(L5, L15, L40, playerStatus);
+
+
+  //Bouton soraredata
+  var button = document.createElement("div");
+
+  button.setAttribute('style', "margin-top:0%");
+  
+  var link = document.createElement("a");
+
+  link.setAttribute('href', urlPlayer);
+  link.setAttribute('target', "_blank");
+
+  var img = document.createElement("img");
+  img.setAttribute('src', "https://i.ibb.co/Q846wRd/soraredata-logo.png");
+  img.setAttribute('width', "40");
+  img.setAttribute('height', "40");
+  img.setAttribute('style', "border-radius:5px 5px")
+
+  link.appendChild(img);
+
+  //Bouton transfertmarkt
+  var buttont = document.createElement("div");
+
+  buttont.setAttribute('style', "margin-top:0%");
+
+  var linkt = document.createElement("a");
+
+  linkt.setAttribute('href', "https://www.baseball-reference.com/search/search.fcgi?search=" + playerName);
+  linkt.setAttribute('target', "_blank");
+
+  var imgt = document.createElement("img");
+  imgt.setAttribute('src', "https://pbs.twimg.com/profile_images/849301979994234880/V9SybF8H_400x400.jpg");
+  imgt.setAttribute('width', "40");
+  imgt.setAttribute('height', "40");
+  imgt.setAttribute('style', "border-radius:5px 5px")
+
+  linkt.appendChild(imgt);
+
+  //Bouton transfertmarkt
+  /*var buttonSofa = document.createElement("div");
+
+  buttonSofa.setAttribute('style', "margin-top:0%");
+
+  var linkSofa = document.createElement("a");
+
+  linkSofa.setAttribute('href', "https://www.sofascore.com/search?q=" + playerName);
+  linkSofa.setAttribute('target', "_blank");
+
+  var imgSofa = document.createElement("img");
+  imgSofa.setAttribute('src', "https://yt3.ggpht.com/ytc/AKedOLRXkWgKnrK4xlgol3j5r08WV6Ny_s5gVUfTLwt63g=s88-c-k-c0x00ffffff-no-rj");
+  imgSofa.setAttribute('width', "40");
+  imgSofa.setAttribute('height', "40");
+  imgSofa.setAttribute('style', "border-radius:5px 5px")
+
+  linkSofa.appendChild(imgSofa);*/
+  
+
+  button.appendChild(link);
+  buttont.appendChild(linkt);
+  //buttonSofa.appendChild(linkSofa);
+
+  var body;
+
+  if (document.body.lastChild.children.length == 4) //main page
+  {
+    body = document.body.lastChild.children[2].children[0].children[1].children[1].children[0].children[0].children[0].children[0];
+  }
+  else if (document.body.children.root.children.length == 3) //club
+  {
+    body = document.body.children.root.children[1].children[1].children[0].children[1].children[0].children[0].children[0].children[0];
+  }
+
+  /*if(document.getElementsByClassName("MuiPaper-root").length == 1 && document.getElementsByClassName("MuiPaper-root")[0].children[1].children[0].children.length == 3)
+  {
+    body = document.getElementsByClassName("MuiPaper-root")[0].children[1].children[0].children[2];
+  }
+  else if(document.getElementsByClassName("MuiPaper-root").length == 1 && document.getElementsByClassName("MuiPaper-root")[0].children[1].children[0].children.length == 2)
+  {
+    body = document.getElementsByClassName("MuiPaper-root")[0].children[1].children[0].children[1];
+  }*/
+
+  /*if (document.getElementsByClassName("MuiPaper-root").length == 1 && document.getElementsByClassName("webp")[0].children[1].children[0].children[0].children.length == 2)
+  {
+    body = document.getElementsByClassName("webp")[0].children[1].children[0].children[0].children[1];
+  }
+  else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children.length == 3)
+  {
+    body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[2];
+  }
+  else if (document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children.length == 2)
+  {
+    body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[0].children[1];
+  }*/
+
+  body.appendChild(button);
+  body.appendChild(buttont);
+  body.appendChild(buttonSofa);
+}
+
 function Add_Stats_On_Page(_L5, _L15, _L40, _playerStatus)
 {
   const L5 = Math.trunc(_L5);
@@ -257,6 +404,66 @@ function Add_Stats_On_Page(_L5, _L15, _L40, _playerStatus)
   }
 
   classStyle = body.children[0].children[0].children[0].className.split(' ')[0];
+
+  var DrawPlayerStatus = document.createElement('div');
+  DrawPlayerStatus.setAttribute('style', "font-family: apercu-pro, system-ui, sans-serif; font-style: normal; font-weight: 700; line-height: 26px;");
+  DrawPlayerStatus.textContent = getPlayingStatus(_playerStatus);
+
+  var DrawL5 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L5), FindDNP(L5));
+  DrawL5.setAttribute('title', "L5");
+  DrawL5.setAttribute('style', "margin-right:10px")
+
+  var DrawL15 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L15), FindDNP(L15));
+  DrawL15.setAttribute('title', "L15");
+  DrawL15.setAttribute('style', "margin-right:10px")
+
+  var DrawL40 = CreateAVGElement('div', classStyle + " " + returnStyleAverage(L40), FindDNP(L40));
+  DrawL40.setAttribute('title', "L40");
+  DrawL40.setAttribute('style', "margin-right:10px")
+
+  var DrawInformation = document.createElement("div");
+
+  DrawInformation.setAttribute('class', "playerInformationPlus");
+  //DrawInformation.setAttribute('style', "gap:10px")
+
+  DrawInformation.appendChild(DrawPlayerStatus);
+  DrawInformation.appendChild(DrawL5);
+  DrawInformation.appendChild(DrawL15);
+  DrawInformation.appendChild(DrawL40);
+
+  body.parentElement.insertBefore(DrawInformation, body.parentElement.children[1]);
+}
+
+function Add_Stats_On_Page_MLB(_L5, _L15, _L40, _playerStatus)
+{
+  const L5 = Math.trunc(_L5);
+  const L15 = Math.trunc(_L15);
+  const L40 = Math.trunc(_L40);
+
+  var body;
+  var classStyle;
+
+  
+  if (document.body.lastChild.children.length == 4) //main page
+  {
+    body = document.body.lastChild.children[2].children[0].children[1].children[1].children[0].children[0].children[0].children[0];
+  }
+  else if (document.body.children.root.children.length == 3) //club
+  {
+    body = document.body.children.root.children[1].children[1].children[0].children[1].children[0].children[0].children[0].children[0];
+  }
+
+  /*if (document.getElementsByClassName("MuiPaper-root").length == 1)
+  {
+    //body = document.getElementsByClassName("webp")[0].children[1].children[0].children[1].children[0].children[0].children[0];
+    body = document.getElementsByClassName("MuiPaper-root")[0].children[1].children[1].children[0].children[0].children[0];
+  }
+  else
+  {
+    body = document.getElementsByClassName("MuiPaper-root")[1].children[1].children[1].children[0].children[0].children[0];
+  }*/
+
+  classStyle = body.children[0].className.split(' ')[1];
 
   var DrawPlayerStatus = document.createElement('div');
   DrawPlayerStatus.setAttribute('style', "font-family: apercu-pro, system-ui, sans-serif; font-style: normal; font-weight: 700; line-height: 26px;");
